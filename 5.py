@@ -1,28 +1,32 @@
-def generate_pubic_key(prime,base,private_key):
-    return pow(base,private_key,prime)
-def generate_shared_secret(public_key,private_key,prime):
-    return pow(public_key,private_key,prime)
-prime=int(input("enter the large prime number(recommanded>2048 bits)"))
-base=int(input("enter the large prime number(recommanded>2048 bits)"))
+def generate_public_key(prime, base, private_key):
+    return pow(base, private_key, prime)
 
-aliceprivate=int(input("aliceenter your private key(a random interger less than the prime)"))
-alice_public=generate_public_key(prime,base,alice_private)
-print("Alice public key %d",alice_public)
+def generate_shared_secret(public_key, private_key, prime):
+    return pow(public_key, private_key, prime)
 
-bobprivate=int(input("aliceenter your private key(a random interger less than the prime)"))
-bob_public=generate_public_key(prime,base,alice_private)
-print("Alice public key %d",alice_public)
+# Input prime and base
+prime = int(input("Enter a large prime number (recommended > 2048 bits): "))
+base = int(input("Enter a base (recommended < prime): "))
 
-private("bobs publickey:",bob_public)
+# Alice's private key
+alice_private = int(input("Alice, enter your private key (a random integer less than the prime): "))
+alice_public = generate_public_key(prime, base, alice_private)
+print("Alice's public key:", alice_public)
 
-alice_shared_secret=generate_shared_secret(bob_public,aliceprivate,prime)
-bob_shared_secret=generate_shared_secret(alice_public,bobprivate,prime)
+# Bob's private key
+bob_private = int(input("Bob, enter your private key (a random integer less than the prime): "))
+bob_public = generate_public_key(prime, base, bob_private)
+print("Bob's public key:", bob_public)
 
-print("Alice Shared secrte:",alice_shared_secret)
-print("Bob shared secret",bob_shared_secret)
+# Generate shared secrets
+alice_shared_secret = generate_shared_secret(bob_public, alice_private, prime)
+bob_shared_secret = generate_shared_secret(alice_public, bob_private, prime)
 
-if alice_shared_secret== bob_shared_secret:
-    print("Sucess the secret key is",alice_shared_secret)
+print("Alice's shared secret:", alice_shared_secret)
+print("Bob's shared secret:", bob_shared_secret)
+
+# Verify if the shared secrets match
+if alice_shared_secret == bob_shared_secret:
+    print("Success! The shared secret key is:", alice_shared_secret)
 else:
-    print("Error :shared secret do not matched")
-
+    print("Error: shared secrets do not match.")
