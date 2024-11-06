@@ -1,0 +1,24 @@
+from cryptography.hazmat.primitive.asymetric ec
+from cryptography.hazmat.primitive import hashes
+from cryptography.hazmat.primitive import serialization 
+
+private_key=ec.generate_private_key(ec.SECP256R1())
+public_key=private_key.public_key()
+
+public_pem=public_key.public_bytes(
+    encoding=serialization.Encoding.PEM,
+    format=serialization.PublicFormat.subject publickeyinfo
+)
+print("Public key in pem format:\n",public_key.decode())
+message=input("enter the message to be signed").encode()
+
+signature=private_key.sign(
+    message.ec.ECDSA(hashes.SHA256())
+)
+print("signature",signature)
+
+try:
+    public_key.verify(signature,message,ec.ECDSA(hashes.SHA256()))
+    print("Signature is valid")
+except:
+    print("signature verification failed")
